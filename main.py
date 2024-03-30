@@ -11,17 +11,39 @@ st.info("We will provide you information about data in visualization Form or Dat
 
 st.warning("For any Information please contact with HR Dept")
 data = pd.read_csv("hrdata1.csv")
-##data.head(1)
+
 st.success("File is uploaded")
 
 df_cpy_cmp = data.copy()
-df_cpy_cmp.head(6)
+df_cpy_cmp.isnull().sum()
+
+#first 5 rows of dataset
+
+st.write("### Displaying the Dataset")
+st.write("First 5 Rows of HR DataSet")
+st.dataframe(df_cpy_cmp.head())
+
+#Specific 5 columns of dataset
+
+columns_of_interest = ['Employee_Name', 'EmpID', 'Salary', 'Position', 'Sex', 'CitizenDesc','Department']
+
+# Display the first 5 rows of the specified columns
+st.write("Specific Columns of HR DataSet")
+st.dataframe(df_cpy_cmp[columns_of_interest].head())
 
 st.sidebar.title("Welcome to HR")
 st.sidebar.image("download.jpg")
 # Display the DataFrame using Streamlit
-st.write("### Displaying the Dataset")
-st.dataframe(df_cpy_cmp)
+
+
+
+#how many male and female in HR Department showing with bargraph
+
+gender_counts = df_cpy_cmp.groupby(['State', 'Sex']).size().unstack()
+
+# Plotting bar graph
+st.bar_chart(gender_counts)
+st.scatter_chart(gender_counts)
 
 
 
