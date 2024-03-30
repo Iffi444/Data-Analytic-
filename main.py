@@ -3,6 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 
+
 st.title("HR Data Visualization")
 st.header("Data isuaization is a powerful tool for human resources (HR) and talent development. By creating clear, interactive, and insightful visual representations, HR can monitor workforce demographics, track employee performance, analyze turnover rates, and identify skill gaps.")
 
