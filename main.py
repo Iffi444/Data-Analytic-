@@ -1,6 +1,7 @@
 import pandas as pd
 
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 import streamlit as st
 
@@ -27,7 +28,7 @@ st.dataframe(df_cpy_cmp.head())
 
 columns_of_interest = ['Employee_Name', 'EmpID', 'Salary', 'Position', 'Sex', 'CitizenDesc','Department']
 
-# Display the first 5 rows of the specified columns
+# Display the first 5 rows of the specified columnsgit
 st.write("Specific Columns of HR DataSet")
 st.dataframe(df_cpy_cmp[columns_of_interest].head())
 
@@ -35,16 +36,17 @@ st.sidebar.title("Welcome to HR")
 st.sidebar.image("download.jpg")
 # Display the DataFrame using Streamlit
 
+gender_counts = df_cpy_cmp.groupby(['Department', 'Sex']).size().unstack()
 
-
-#how many male and female in HR Department showing with bargraph
-
-gender_counts = df_cpy_cmp.groupby(['State', 'Sex']).size().unstack()
-
-# Plotting bar graph
-st.bar_chart(gender_counts)
-st.scatter_chart(gender_counts)
-
+plt.figure(figsize=(10, 6))  # Set the size of the plot
+#sns.barplot(data=gender_counts, palette="husl")  # Create the bar plot
+sns.countplot(x="Sex", hue="Sex", data=df_cpy_cmp)
+plt.title("Number of Males and Females in Each Department")  # Set the title
+plt.xlabel("Sex")  # Set the label for the x-axis
+plt.ylabel("Count")  # Set the label for the y-axis
+plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for better readability
+plt.tight_layout()  # Adjust layout to prevent clipping of labels
+st.pyplot(plt)  # Display the plot in Streamlit
 
 
 
